@@ -1,7 +1,10 @@
 //Tree Implementation
 #include "Tree.h"
 
-template<class T>
+//Class Tree Definitions
+
+//Constructor simply defines root node
+template<typename T>
 Tree<T>::Tree() {
 
 	root_node = new Node; 
@@ -10,3 +13,14 @@ Tree<T>::Tree() {
 }
 
 
+//Method returns iterator pointer to first node in the tree (root node)
+template<typename T>
+typename Tree<T>::iterator Tree<T>::begin() {
+	
+}
+
+//Class iter defintions
+template<typename T>
+iter<T>::iter(T & mTree) {
+	m_tree = mTree;
+}
