@@ -25,9 +25,14 @@ class Tree {
 			//bool operator==(); //Compares two Nodes by checking their Children
 		};
 
-		//Constructors
+		//Constructors and access
 		Tree();
 		~Tree();
+		Node * get_root();
+		int get_depth(const T m_val);
+		int get_tree_depth();
+		int get_height(const T m_val);
+		int get_tree_height();
 		
 		//modifiers
 		void erase();	//Clears all the tree
@@ -43,9 +48,6 @@ class Tree {
 		iterator find_inorder(const T m_val); //In order traversal
 		iterator find_preorder(const T m_val); //preorder traversal
 		iterator find_postorder(const T m_val); //Postorder traversal
-		
-		bool empty();
-
 
 	private:
 
@@ -56,9 +58,12 @@ class Tree {
 
 template<typename T> class iter{
 	public:
+		iter();
 		iter(T & mTree);
-		typename Tree<T>::Node operator*();
+		typename Tree<T>::Node operator*(iter<T> m_iter);
+		iter<T> operator++(iter<T> m_iter);
 	private:
+		typename Tree<T>::Node * curNode;
 		Tree<T> & m_tree;
 };
 
