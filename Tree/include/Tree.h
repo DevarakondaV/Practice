@@ -22,7 +22,7 @@ class Tree {
 			T val;
 			Node * l_node;
 			Node * r_node;
-			//bool operator==(); //Compares two Nodes by checking their Children
+			bool operator==(Node comp_node); //Compares two Nodes by checking their Children
 		};
 
 		//Constructors and access
@@ -52,6 +52,9 @@ class Tree {
 	private:
 
 		Node * root_node;
+		void in_order_add(Node * m_node,T m_val);
+		void add_node_right(Node * m_node, T m_val); //Adds new node to right of m_node
+		void add_node_left(Node * m_node, T m_val); //Adds new node to left of m_node
 };
 
 
@@ -61,7 +64,8 @@ template<typename T> class iter{
 		iter();
 		iter(T & mTree);
 		typename Tree<T>::Node operator*(iter<T> m_iter);
-		iter<T> operator++(iter<T> m_iter);
+		//For trees...operator++ cannot interate without parent node
+		iter<T> operator++();
 	private:
 		typename Tree<T>::Node * curNode;
 		Tree<T> & m_tree;
