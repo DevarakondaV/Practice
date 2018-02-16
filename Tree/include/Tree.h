@@ -2,19 +2,19 @@
 #ifndef __TREE_H_
 #define __TREE_H_
 
-template<typename T> class iter;
+//template<typename T> class iter;
 
 template<typename T>
 class Tree {
 	public:
 
 		//Iterator declerations
-		typedef iter<T> iterator;
-		friend class iter<T>;
+		//typedef iter<T> iterator;
+		//friend class iter<T>;
 
 		//Iterator functions
-		iterator begin();	//Returns iterator to first item
-		iterator end();		//Returns iterattor to last item
+		///iterator begin();	//Returns iterator to first item
+		//iterator end();		//Returns iterattor to last item
 
 
 		//Tree Node
@@ -45,9 +45,12 @@ class Tree {
 		void append_tree(Node * val); //Adds node or tree to the tree
 
 
-		iterator find_inorder(const T m_val); //In order traversal
-		iterator find_preorder(const T m_val); //preorder traversal
-		iterator find_postorder(const T m_val); //Postorder traversal
+		//iterator find_inorder(const T m_val); //In order traversal
+		//iterator find_preorder(const T m_val); //preorder traversal
+		//iterator find_postorder(const T m_val); //Postorder traversal
+
+		//Other
+		void print();
 
 	private:
 
@@ -55,10 +58,11 @@ class Tree {
 		void in_order_add(Node * m_node,T m_val);
 		void add_node_right(Node * m_node, T m_val); //Adds new node to right of m_node
 		void add_node_left(Node * m_node, T m_val); //Adds new node to left of m_node
+		int erase_nodes(Node * m_node); // Erases all nodes;
 };
 
 
-
+/*
 template<typename T> class iter{
 	public:
 		iter();
@@ -69,7 +73,7 @@ template<typename T> class iter{
 	private:
 		typename Tree<T>::Node * curNode;
 		Tree<T> & m_tree;
-};
+};*/
 
 
 #endif
