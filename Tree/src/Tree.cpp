@@ -5,17 +5,21 @@
 
 //Constructor simply defines root node
 template<typename T>
-Tree<T>::Tree() {
-
-	root_node = new Node; 
+Tree<T>::Tree(T root_val) {
+	root_node = new Node;
+	root_node->val = root_val;	
 	root_node->l_node = nullptr;
-	root_node->r_node = nullptr;	
+	root_node->r_node = nullptr;
+	number_nodes = 0;
+	tree_height = 0;
+	tree_depth = 0;
+	number_nodes++;	
 }
 
 //destructor
 template<typename T>
 Tree<T>::~Tree() {
-	//erase();
+	erase();
 	delete root_node;
 }
 
@@ -27,13 +31,21 @@ void Tree<T>::erase() {
 
 template<typename T>
 int Tree<T>::erase_nodes(Node * m_node) {
-	if (m_node->l_node == nullptr && m_node->r_node == nullptr)
+	if (m_node->l_node == nullptr && m_node->r_node == nullptr) {
+		delete m_node->l_node;
+		delete m_node->r_node;
 		return 2;
-	if (m_node->l_node != nullptr)	
-		erase_nodes(m_node->l_node);
+	}
 
-	if (m_node->r_node != nullptr)
-		erase_nodes(m_node->r_node);
+	if (m_node->l_node != nullptr) {
+		if (erase_nodes(m_node->l_node) == 2)
+			delete m_node->l_node;
+	}
+
+	if (m_node->r_node != nullptr) {
+		if (erase_nodes(m_node->r_node) == 2)
+			delete m_node->r_node;
+	}
 }
 
 //return ptr to root node
@@ -88,6 +100,7 @@ void Tree<T>::add_node_right(Node * m_node,T m_val) {
 	Node * new_node = new Node();
 	new_node->val = m_val;
 	m_node -> r_node = new_node;
+	number_nodes++;
 	return;
 }
 
@@ -96,7 +109,26 @@ void Tree<T>::add_node_left(Node * m_node, T m_val) {
 	Node * new_node = new Node();
 	new_node->val = m_val;
 	m_node -> r_node = new_node;
+	number_nodes++;
 	return;
+}
+
+
+//Various access and tre property methods
+//Returns number of nodes in the tree
+template<typename T>
+int Tree<T>::get_node_count() {
+	return number_nodes;
+}	
+
+//Returns the tree high
+//Not correctly implemented yet
+template<typename T>
+int Tree<T>::get_tree_height(Node * m_node) {
+	if (m_node->l_node == nullptr && m_node->r_node == nullptr)
+		return 1;
+
+	return get_tree_height(m_node->l_node)+get_tree_height(m_node->r_node);
 }
 
 

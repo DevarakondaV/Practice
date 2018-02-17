@@ -26,13 +26,12 @@ class Tree {
 		};
 
 		//Constructors and access
-		Tree();
+		Tree(T root_val);
 		~Tree();
 		Node * get_root();
-		int get_depth(const T m_val);
-		int get_tree_depth();
-		int get_height(const T m_val);
-		int get_tree_height();
+		int get_tree_depth(Node * m_node);
+		int get_tree_height(Node * m_node);
+		int get_node_count();
 		
 		//modifiers
 		void erase();	//Clears all the tree
@@ -49,9 +48,6 @@ class Tree {
 		//iterator find_preorder(const T m_val); //preorder traversal
 		//iterator find_postorder(const T m_val); //Postorder traversal
 
-		//Other
-		void print();
-
 	private:
 
 		Node * root_node;
@@ -59,6 +55,11 @@ class Tree {
 		void add_node_right(Node * m_node, T m_val); //Adds new node to right of m_node
 		void add_node_left(Node * m_node, T m_val); //Adds new node to left of m_node
 		int erase_nodes(Node * m_node); // Erases all nodes;
+
+
+		int number_nodes;
+		int tree_height;
+		int tree_depth;
 };
 
 
