@@ -1,6 +1,6 @@
 //Binary Tree Implementation
 #include "Tree.h"
-
+#include <stdexcept>
 //Class Tree Definitions
 
 //Constructor simply defines root node
@@ -80,12 +80,14 @@ bool Tree<T>::Node::operator==(Node comp_node) {
 		return false;
 }
 
+/*
 template<typename T>
 void Tree<T>::append_node(T m_Val) {
 	in_order_add(root_node,m_Val);
 }
 
 //Private member of tree class
+//This function does not add in order
 template<typename T>
 void Tree<T>::in_order_add(Node * m_node, T m_val)
 {
@@ -93,10 +95,12 @@ void Tree<T>::in_order_add(Node * m_node, T m_val)
 		return m_node->r_node == nullptr ? add_node_right(m_node,m_val) : in_order_add(m_node->r_node,m_val);
 	else 
 		return m_node->l_node == nullptr ? add_node_left(m_node,m_val) : in_order_add(m_node->l_node, m_val);
-}
+}*/
 
 template<typename T>
 void Tree<T>::add_node_right(Node * m_node,T m_val) {
+	if (m_node->r_node != nullptr)
+		return;
 	Node * new_node = new Node();
 	new_node->val = m_val;
 	m_node -> r_node = new_node;
@@ -106,9 +110,11 @@ void Tree<T>::add_node_right(Node * m_node,T m_val) {
 
 template<typename T>
 void Tree<T>::add_node_left(Node * m_node, T m_val) {
+	if (m_node->l_node != nullptr)
+		return;
 	Node * new_node = new Node();
 	new_node->val = m_val;
-	m_node -> r_node = new_node;
+	m_node -> l_node = new_node;
 	number_nodes++;
 	return;
 }
@@ -121,19 +127,54 @@ int Tree<T>::get_node_count() {
 	return number_nodes;
 }	
 
-//Returns the tree high
-//Not correctly implemented yet
+//Returns the tree hight
 template<typename T>
 int Tree<T>::get_tree_height(Node * m_node) {
 	if (m_node->l_node == nullptr && m_node->r_node == nullptr)
-		return 1;
+		return 0;
 
-	return get_tree_height(m_node->l_node)+get_tree_height(m_node->r_node);
+	int height_left = 0;
+	int height_right = 0;
+
+	if (m_node->l_node != nullptr)
+	{
+		height_left = height_left+1+get_tree_height(m_node->l_node);
+	}
+
+	if (m_node->r_node != nullptr)
+	{
+		height_right = height_right+1+get_tree_height(m_node->r_node);
+	}
+
+	return height_left >= height_right ? height_left : height_right;
+}
+
+//Searches tree for m_val
+template<typename T>
+typename Tree<T>::Node * Tree<T>::find(T m_val)
+{
+	return find(root_node,m_val);
+}
+
+//Binary search looking for m_val
+template<typename T>
+typename Tree<T>::Node * Tree<T>::find(Node * m_node,T m_val)
+{
+	if (m_node != nullptr && m_node->val == m_val)
+		return m_node;
+	if (m_node->l_node == nullptr && m_node->r_node == nullptr)
+		return nullptr;
+
+	if (m_node->l_node != nullptr)
+		return find(m_node->l_node,m_val);
+	if (m_node->r_node != nullptr)
+		return find(m_node->r_node,m_val);
 }
 
 
+			
 /*
-//Class iter defintions
+/Class iter defintions
 template<typename T>
 iter<T>::iter(T & mTree) {
 	m_tree = mTree;
