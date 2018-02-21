@@ -31,21 +31,30 @@ void Tree<T>::erase() {
 
 template<typename T>
 int Tree<T>::erase_nodes(Node * m_node) {
-	if (m_node->l_node == nullptr && m_node->r_node == nullptr) {
-		delete m_node->l_node;
-		delete m_node->r_node;
-		return 2;
-	}
+	//At leaf node
+	if (m_node -> l_node == nullptr && m_node->r_node == nullptr)
+		return 2; //Node deleted when function returns 2
 
-	if (m_node->l_node != nullptr) {
-		if (erase_nodes(m_node->l_node) == 2)
+	//If node exists to left
+	if (m_node->l_node != nullptr)
+	{
+		if (erase_nodes(m_node -> l_node) == 2){
 			delete m_node->l_node;
+			m_node->l_node = nullptr;
+		}
 	}
 
-	if (m_node->r_node != nullptr) {
-		if (erase_nodes(m_node->r_node) == 2)
+	//if node exists to right
+	if (m_node->r_node != nullptr)
+	{
+		if (erase_nodes(m_node->r_node) == 2) {
 			delete m_node->r_node;
+			m_node->r_node = nullptr;
+		}
 	}
+
+	//at this point current node should be a leaf node. Hense return 2 so other nodes can be deleted
+	return 2;
 }
 
 //return ptr to root node
@@ -55,18 +64,6 @@ typename Tree<T>::Node * Tree<T>::get_root() {
 }
 
 
-/*
-//Method returns iterator pointer to first node in the tree (root node)
-template<typename T>
-iter<T> Tree<T>::begin() {
-	iter<T> rtnIter = iter<T>(this);
-	return rtnIter;	
-}
-
-template<typename T>
-iter<T> Tree<T>::end() {
-	return iter<T>();
-}*/
 
 
 //Adds m_val to the tree. If m_val< root.val, Node added left. else added right.
@@ -80,22 +77,6 @@ bool Tree<T>::Node::operator==(Node comp_node) {
 		return false;
 }
 
-/*
-template<typename T>
-void Tree<T>::append_node(T m_Val) {
-	in_order_add(root_node,m_Val);
-}
-
-//Private member of tree class
-//This function does not add in order
-template<typename T>
-void Tree<T>::in_order_add(Node * m_node, T m_val)
-{
-	if (m_node->val < m_val)
-		return m_node->r_node == nullptr ? add_node_right(m_node,m_val) : in_order_add(m_node->r_node,m_val);
-	else 
-		return m_node->l_node == nullptr ? add_node_left(m_node,m_val) : in_order_add(m_node->l_node, m_val);
-}*/
 
 template<typename T>
 void Tree<T>::add_node_right(Node * m_node,T m_val) {
@@ -162,36 +143,34 @@ typename Tree<T>::Node * Tree<T>::find(Node * m_node,T m_val)
 {
 	if (m_node != nullptr && m_node->val == m_val)
 		return m_node;
-	if (m_node->l_node == nullptr && m_node->r_node == nullptr)
-		return nullptr;
-
+	
+	Tree<T>::Node * l_rtnval = nullptr;
+	Tree<T>::Node * r_rtnval = nullptr;
+	
+	
 	if (m_node->l_node != nullptr)
-		return find(m_node->l_node,m_val);
+		l_rtnval = find(m_node->l_node,m_val);
 	if (m_node->r_node != nullptr)
-		return find(m_node->r_node,m_val);
+		r_rtnval = find(m_node->r_node,m_val);
+
+	if (l_rtnval != nullptr)
+		return l_rtnval;
+
+	if (r_rtnval  != nullptr)
+		return r_rtnval;
+
+	return nullptr;
 }
 
 
+//Erases all children at node of val
+template<typename T>
+void Tree<T>::erase_children(T val) {
+	typename Tree<T>::Node * ptr= find(val);
+	if (ptr != nullptr)
+		erase_nodes(ptr);
+}
 			
-/*
-/Class iter defintions
-template<typename T>
-iter<T>::iter(T & mTree) {
-	m_tree = mTree;
-	curNode = m_tree->get_root();
-}
-
-template<typename T>
-iter<T>::iter() {
-	m_tree = nullptr;
-	curNode = nullptr;
-}
-
-//Dereferences curNode and returns Node
-template<typename T>
-typename Tree<T>::Node iter<T>::operator*(iter<T> m_iter) {
-	return *curNode;
-}*/
 
 template class Tree<int>;
 

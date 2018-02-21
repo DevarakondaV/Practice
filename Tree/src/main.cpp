@@ -29,18 +29,16 @@ int main() {
 	nTree.add_node_right(nTree.get_root()->l_node,6);
 	nTree.add_node_right(nTree.get_root()->r_node->r_node,7);
 
-	Tree<int>::Node* rtn = nTree.find(10);
-
-	if (rtn != nullptr)
-	{
-		cout << "Found val" << endl;
-	}
-	else
-	{
-		cout << "Not Found " << endl;
-	}	
+	/*
+	Tree<int>::Node* rtn = nTree.find(1);
+	cout << (rtn != nullptr ? "Found Val 1" : "Not Found 1") << endl;
+	*/	
 	in_order_print(nTree.get_root()); cout << endl;
-	cout << nTree.get_tree_height(nTree.get_root()) << endl;
+	
+	//cout << nTree.get_tree_height(nTree.get_root()) << endl;
+	
+	nTree.erase_children(1);
+	in_order_print(nTree.get_root()); cout << endl;
 	return(-1);
 }
 
