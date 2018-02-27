@@ -3,19 +3,6 @@
 
 
 //Constructors and destructors
-/*
-template<typename T>
-List<T>::List()
-{
-	Node * new_root = new Node();
-	new_root->next = nullptr;
-	new_root->parent = nullptr;
-	new_root->val = NULL;
-	root = new_root;
-	n_size = 0;
-}*/
-
-
 template<typename T>
 List<T>::List(T m_val)
 {
@@ -24,22 +11,15 @@ List<T>::List(T m_val)
 	new_root->parent = nullptr;
 	new_root->val = m_val;
 	root = new_root;
+	end = root;
 	n_size = 1;
+	ordered = false;
 }
 
 
 template<typename T>
 void List<T>::add_value(T m_val)
 {
-	/*
-	//if root val is null
-	if (root->val == NULL) {
-		root->val = m_val;
-		n_size = 1;
-		return;
-	}*/
-
-
 	//Adding new value
 	Node * new_val = new Node();
 	new_val->val = m_val;
@@ -56,6 +36,29 @@ void List<T>::add_value(T m_val)
 template<typename T>
 int List<T>::size() {
 	return n_size+1;
+}
+
+template<typename T>
+T List<T>::pop() {
+	Node * cpy = root;
+	T val = root->val;
+	root->next->parent = nullptr;
+	root = root->next;
+	n_size--;
+	delete cpy;
+	return val;
+}
+
+template<typename T>
+void List<T>::push(T m_val)
+{
+	Node * new_node = new Node;
+	new_node->val = m_val;
+	new_node->next = nullptr;
+	new_node->parent = end;
+	end->next = new_node;
+	end = new_node;
+	n_size++;
 }
 
 

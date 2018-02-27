@@ -6,8 +6,6 @@ template<typename T>
 class List {
 	public:
 		//Constructors and Destructors
-		//List();
-		//~List();
 		List(T m_val);
 
 
@@ -30,8 +28,11 @@ class List {
 			T val;
 		};
 
+
 		Node * root;
+		Node * end;
 		int n_size;
+		bool ordered;
 };
 
 
