@@ -74,5 +74,19 @@ void List<T>::print()
 	}
 }
 
+//iterator definitions
+
+template<typename T>
+iter<T>::iter(List<T> & list) {
+	m_list = list;
+	cur_val = m_list->front();
+}
+
+template<typename T>
+typename List<T>::iterator List<T>::begin() {
+	iterator itr = iter<T>(this);
+	return itr;
+}
+
 template class List<int>;
 
