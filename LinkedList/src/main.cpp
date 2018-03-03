@@ -12,9 +12,8 @@ int main()
 	l.add_value(9);
 	l.push(14);
 	l.push(6);
+	l.insert(8,4);
 	l.print();
-	l.pop();
-	cout << endl;
-	l.print();
+		
 	return -1;
 }

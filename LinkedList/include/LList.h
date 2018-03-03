@@ -21,14 +21,15 @@ class List {
 		void remove_value(T m_val); //finds m_val and remove it 
 		T pop(); // pops the first value and returns it. Will remove from list
 		void push(T m_val); //pushes to the back of list
-
+		void insert(T m_val,int idx); //inserts m_val at index idx
 		
 		//
-		void operator[](T m_val);
+		T operator[](int idx);
 
 		//Access
 		int size(); //retrun size of the list;
-		void print(); //prints entire list	
+		void print(); //prints entire list
+		int get_index(T m_val); //return index of m_val or return -1	
 
 	private:
 
@@ -46,16 +47,23 @@ class List {
 
 		//iterator private
 		friend class iter<T>;
-		Node * front();
+		Node * get_root();
+
+		int find(T m_val); //return index of m_val or -1 if doesn't exit
 };
 
 
 template<typename T>
 class iter{
 	public:
-		iter(List<T> & m_list);
+		iter(List<T> & my_list,bool end);	
+		T operator*();
+		void operator++();
+		void operator++(int);
+		bool operator==(iter<T> test_iter);
+		bool operator!=(iter<T> test_iter);
 	private:
-		T cur_val;
+		typename List<T>::Node * cur_node;
 		List<T> & m_list;
 		friend class List<T>;
 };
