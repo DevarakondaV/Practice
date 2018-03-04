@@ -20,9 +20,12 @@ class List {
 		void add_value(T m_val); //adds value to the front of the list
 		void remove_value(T m_val); //finds m_val and remove it 
 		T pop(); // pops the first value and returns it. Will remove from list
+		T pop_back(); //pops the last value and returns it. Will remove last value from list;
 		void push(T m_val); //pushes to the back of list
 		void insert(T m_val,int idx); //inserts m_val at index idx
-		
+		void remove(T m_val); //removes m_val if it exists
+		void remove_by_idx(int idx); //remove element at index idx		
+
 		//
 		T operator[](int idx);
 

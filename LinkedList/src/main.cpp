@@ -14,6 +14,8 @@ int main()
 	l.push(6);
 	l.insert(8,4);
 	l.print();
-		
+	l.remove_by_idx(3);
+	cout << endl;
+	l.print();	
 	return -1;
 }

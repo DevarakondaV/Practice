@@ -41,14 +41,36 @@ int List<T>::size() {
 //pops root value and returns
 template<typename T>
 T List<T>::pop() {
-	Node * cpy = root;
-	T val = root->val;
-	root->next->parent = nullptr;
-	root = root->next;
-	n_size--;
-	delete cpy;
-	return val;
+	
+	//Checking if list is empty
+	if (root != nullptr) {
+		Node * cpy = root;
+		T val = root->val;
+
+		//If root is not only value
+		if (root->next != nullptr)
+			root->next->parent = nullptr;
+		root = root->next;
+		n_size--;
+		delete cpy;
+		return val;
+	}
 }
+
+//pops back value and returns and also removes
+template<typename T>
+T List<T>::pop_back() {
+	//if list contains single value. Just pop()
+	if (n_size == 1)
+		return pop();
+	T rtnval = back->val;
+	Node * ptr_cpy = back;
+	back->parent->next = nullptr;
+	back = ptr_cpy->parent;
+	delete ptr_cpy;
+	n_size--;
+	return rtnval;
+}	
 
 //pushes value to the back of list
 template<typename T>
@@ -117,7 +139,58 @@ void List<T>::insert(T m_val,int idx) {
 	n_size++;
 	return;
 }
+
+template<typename T>
+void List<T>::remove(T m_val) {
+	Node * cur = root;
 	
+	//List is empty
+	if (n_size == 0)
+		return;
+
+	//searching for value, O(n) worst case
+	while(cur != nullptr) {
+		if(cur->val == m_val)
+			break;
+		cur = cur->next;
+	}
+
+	//value not found
+	if (cur == nullptr)
+		return;
+
+
+	//if val is at root node
+	if (cur->parent == nullptr) {
+		pop();
+		return;
+	}
+
+	//if val is at end of list
+	if (cur->next == nullptr) {
+		pop_back();
+		return;
+	}
+
+	//In all other cases
+	Node * ptr_cpy = cur;
+	cur->parent->next = cur->next;
+	cur->next->parent = cur->parent;
+	delete ptr_cpy;
+	n_size--;
+	return;
+}
+
+//removes value by index
+template<typename T>
+void List<T>::remove_by_idx(int idx) {
+	//Out of range check
+	if (idx < 0 || idx > n_size)
+		return;
+
+	remove(this->operator[](idx));
+}
+
 
 //Private functions
 //returns root node
