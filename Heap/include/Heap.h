@@ -21,8 +21,8 @@ class Heap
 		int get_max_size();
 	private:
 	
-		//1 is max heap. 2 is min heap	
-		int HEAP_TYPE;
+		//1 is max heap. 0 is min heap	
+		bool HEAP_TYPE;
 		int n_size;
 		//Base Tree size. Once filled need to increase
 		int base_size = 50;

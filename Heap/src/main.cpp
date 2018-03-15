@@ -8,11 +8,19 @@ void print_array(Heap<T> & m_h);
 
 int main() {
 	
-	Heap<int> h = Heap<int>(1,1);
+	int vals [7] = {13,67,3,5,92,7,6};
 	
+	Heap<int> h = Heap<int>(61,1);
+	
+	/*
 	for(int i = 2; i< 35; i++) {
 		h.insert(i);
-	}
+	}*/
+
+	for (int i = 0; i< 7;i++)
+		h.insert(vals[i]);
+
+	
 	print_array(h);
 	return -1;
 }

@@ -5,7 +5,8 @@
 
 template<typename T>
 Heap<T>::Heap(T root_val,int heap_type) {
-	HEAP_TYPE = heap_type;
+	
+	HEAP_TYPE = heap_type == 1? true: false;
 
 	Tree = new T[max_size];
 	*Tree = root_val;
@@ -31,6 +32,33 @@ void Heap<T>::insert(T m_val) {
 		reinit_Tree();
 
 	Tree[n_size] = m_val;
+	
+	int loc = n_size; //Insert location
+	int parent_loc = 0; //Parent location of node at loc
+
+	parent_loc = loc%2 == 0 ? (loc/2) -1 :  loc/2; 
+	
+	// 0 is min heap, 1 is max heap
+	bool chk_parent_less_than;
+	bool chk_parent_greater_than;
+	while (true) {
+		chk_parent_less_than = false;
+		chk_parent_greater_than = false;
+		if (HEAP_TYPE)
+			chk_parent_less_than = Tree[parent_loc] < Tree[loc];
+		else
+			chk_parent_greater_than = Tree[parent_loc] > Tree[loc];
+					
+		if (chk_parent_less_than || chk_parent_greater_than){
+			T cpy = Tree[parent_loc];
+			Tree[parent_loc] = Tree[loc];
+			Tree[loc] = cpy;
+			loc = parent_loc;
+			parent_loc = loc%2 == 0 ? (loc/2)-1 : loc/2;
+		}
+		else
+			break;
+	}
 	n_size++;
 }
 
