@@ -104,4 +104,5 @@ void Heap<T>::reinit_Tree() {
 	Tree = new_Tree;
 }
 
+
 template class Heap<int>;
