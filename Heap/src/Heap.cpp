@@ -31,13 +31,14 @@ void Heap<T>::insert(T m_val) {
 	if ((n_size+1) % base_size == 0)
 		reinit_Tree();
 
+
+
 	Tree[n_size] = m_val;
 	
 	int loc = n_size; //Insert location
 	int parent_loc = 0; //Parent location of node at loc
-
 	parent_loc = loc%2 == 0 ? (loc/2) -1 :  loc/2; 
-	
+
 	// 0 is min heap, 1 is max heap
 	bool chk_parent_less_than;
 	bool chk_parent_greater_than;
@@ -54,7 +55,7 @@ void Heap<T>::insert(T m_val) {
 			Tree[parent_loc] = Tree[loc];
 			Tree[loc] = cpy;
 			loc = parent_loc;
-			parent_loc = loc%2 == 0 ? (loc/2)-1 : loc/2;
+			parent_loc = ((loc%2 == 0) && (loc != 0)) ? (loc/2)-1 : loc/2;
 		}
 		else
 			break;
