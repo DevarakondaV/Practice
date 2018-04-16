@@ -10,7 +10,7 @@ int main() {
 	
 	int vals [7] = {13,67,3,5,92,7,6};
 	
-	Heap<int> h = Heap<int>(61,0);
+	Heap<int> h = Heap<int>(61,1);
 	
 	/*
 	for(int i = 2; i< 35; i++) {

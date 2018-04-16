@@ -64,6 +64,12 @@ void Heap<T>::insert(T m_val) {
 }
 
 
+//Heapifies an out of order heap
+template<typename T>
+void Heap<T>::heapify(int heap_type) {
+
+}
+
 
 //Returns max size of tree
 template<typename T>
@@ -87,6 +93,30 @@ int Heap<T>::get_size() {
 /**Reinitializes tree to larger size
 ***Worst Case Scenaro. Takes O(n)
 **/
+template<typename T>
+int switch_parent_child(int heap_type,int p_idx) {
+	int rtn_val = -1;
+	if (heap_type == 1) {
+		if (Tree[p_idx] < Tree[p_idx+1] || Tree[p_idx] < Tree[p_idx+2] ) {
+			rtn_val = Tree[p_idx+1] < Tree[p_idx+2] ? p_idx+2 : p_idx+1;
+		}
+	}
+	else {
+		if (Tree[p_idx] > Tree[p_idx+1] || Tree[p_idx] > Tree[p_idx+2] ) {
+			rtn_val = Tree[p_idx+1] < Tree[p_idx+2] ? p_idx+1 : p_idx+2;
+		}
+	}
+
+	//check if rtn_val has been updated to new idx
+	if (rtn_val == -1)
+		return rtn_val;
+
+	T cpy = Tree[p_idx];
+	Tree[p_idx] = Tree[rtn_val];
+	Tree[rtn_val] = cpy;
+	return rtn_val;
+}
+
 template<typename T>
 void Heap<T>::reinit_Tree() {
 	///Make Tree max size larger

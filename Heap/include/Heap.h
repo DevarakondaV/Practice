@@ -19,6 +19,8 @@ class Heap
 		int get_size();
 		T * get_last_left();
 		int get_max_size();
+
+		void heapify(int heap_type);
 			
 	private:
 	
@@ -30,6 +32,9 @@ class Heap
 		int max_size = 50;
 		//If Tree is full. Need to reinitialize with larger size
 		void reinit_Tree();
+		//checks and switches parent child if heap requirement not satisfied. return idx of child
+		//or -1 if heap requirement already satisfied
+		int switch_parent_child(int heap_type, int p_idx);
 		
 		//Binary tree implementation as array
 		T * Tree;
