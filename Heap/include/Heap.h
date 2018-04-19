@@ -12,15 +12,16 @@ class Heap
 		~Heap();
 		//Modifier
 		void insert(T m_val);
-		void erase(T m_val);
+		int erase(T m_val);
 
 		//Helper
 		T * get_root();
 		int get_size();
 		T * get_last_left();
 		int get_max_size();
+		T get_root_val();
 
-		void heapify(int heap_type);
+		void heapify(int heap_type, int p_idx);
 			
 	private:
 	

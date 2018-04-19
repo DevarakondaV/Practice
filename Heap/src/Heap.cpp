@@ -37,7 +37,8 @@ void Heap<T>::insert(T m_val) {
 	
 	int loc = n_size; //Insert location
 	int parent_loc = 0; //Parent location of node at loc
-	parent_loc = loc%2 == 0 ? (loc/2) -1 :  loc/2; 
+	//parent_loc = loc%2 == 0 ? (loc/2) -1 :  loc/2; 
+	parent_loc = ((loc%2 == 0) && (loc != 0)) ? (loc-2)/2 : (loc-1)/2;
 
 	// 0 is min heap, 1 is max heap
 	bool chk_parent_less_than;
@@ -55,7 +56,7 @@ void Heap<T>::insert(T m_val) {
 			Tree[parent_loc] = Tree[loc];
 			Tree[loc] = cpy;
 			loc = parent_loc;
-			parent_loc = ((loc%2 == 0) && (loc != 0)) ? (loc/2)-1 : loc/2;
+			parent_loc = ((loc%2 == 0) && (loc != 0)) ? (loc-2)/2 : (loc-1)/2;
 		}
 		else
 			break;
@@ -63,11 +64,40 @@ void Heap<T>::insert(T m_val) {
 	n_size++;
 }
 
+//erases element if it exists. returns 1 if erased and -1  else
+template<typename T>
+int Heap<T>::erase(T m_val) {
+	int idx = -1;
+	for(int i = 0; i<n_size;i++) {
+		if (Tree[i] == m_val) {
+			idx = i;
+			break;
+		}
+	}
+	Tree[idx] = Tree[n_size-1];
+	n_size--;
+
+	heapify(HEAP_TYPE,idx);
+	return idx;
+}
 
 //Heapifies an out of order heap
 template<typename T>
-void Heap<T>::heapify(int heap_type) {
+void Heap<T>::heapify(int heap_type, int p_idx) {
 
+	T cpy[n_size];
+	for(int i = 0;i<n_size;i++) {
+		cpy[i] = Tree[i];
+	}
+	delete[] Tree;
+	Tree = new T[max_size];
+	
+	int n_sizecpy = n_size;
+	n_size = 0;
+	HEAP_TYPE = heap_type;
+	for(int i = 0;i<n_sizecpy;i++) {
+		insert(cpy[i]);
+	}
 }
 
 
@@ -89,21 +119,29 @@ int Heap<T>::get_size() {
 	return n_size;
 }
 
+//returns root val
+template<typename T>
+T Heap<T>::get_root_val() {
+	return Tree[0];
+}
+
 //Private methods
 /**Reinitializes tree to larger size
 ***Worst Case Scenaro. Takes O(n)
 **/
 template<typename T>
-int switch_parent_child(int heap_type,int p_idx) {
+int Heap<T>::switch_parent_child(int heap_type,int p_idx) {
 	int rtn_val = -1;
+	int child1 = (p_idx*2)+1;
+	int child2 = (p_idx*2)+2;
 	if (heap_type == 1) {
-		if (Tree[p_idx] < Tree[p_idx+1] || Tree[p_idx] < Tree[p_idx+2] ) {
-			rtn_val = Tree[p_idx+1] < Tree[p_idx+2] ? p_idx+2 : p_idx+1;
+		if (Tree[p_idx] < Tree[child1] || Tree[p_idx] < Tree[child2] ) {
+			rtn_val = Tree[child1] < Tree[child2] ? child2 : child1;
 		}
 	}
 	else {
-		if (Tree[p_idx] > Tree[p_idx+1] || Tree[p_idx] > Tree[p_idx+2] ) {
-			rtn_val = Tree[p_idx+1] < Tree[p_idx+2] ? p_idx+1 : p_idx+2;
+		if (Tree[p_idx] > Tree[child1] || Tree[p_idx] > Tree[child2] ) {
+			rtn_val = Tree[child1] < Tree[child2] ? child1 : child2;
 		}
 	}
 
