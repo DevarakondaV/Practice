@@ -22,6 +22,7 @@ class Heap
 		T get_root_val();
 
 		void heapify(int heap_type, int p_idx);
+		void reheapify();
 			
 	private:
 	

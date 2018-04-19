@@ -100,6 +100,12 @@ void Heap<T>::heapify(int heap_type, int p_idx) {
 	}
 }
 
+//Reheapifies with current heap setting from the base_size
+template<typename T>
+void Heap<T>::reheapify() {
+	heapify(HEAP_TYPE,0);
+}
+
 
 //Returns max size of tree
 template<typename T>
