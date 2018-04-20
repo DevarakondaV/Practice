@@ -17,7 +17,9 @@ void fun1_5(char *str, int len);
 //1.6 Given an image represented by an NxN matrix, where each pixel in
 //the image is 4 bytes, write a mthod to rotate the image by 90 degress.
 void fun1_6(int mat[5][],int row, int col);
-
+//1.7 Write a function which finds if a matrix element i,j contains 0 and sets 
+// all elements in the row i and col j to 0
+void fun1_7(int mat[5][5], int row,int col); 
 
 int main() {
 	char str[13] = "Hello, World";
@@ -192,4 +194,28 @@ void fun1_6(int mat[5][],int row,int col) {
 		ri++;ci++;
 	}
 	
+}
+
+//1.7 Write a function which finds if a matrix element i,j contains 0 and sets 
+// all elements in the row i and col j to 0
+void fun1_7(int mat[5][5], int row,int col) {
+	int  tot = row*col; int idx[tot][2]; int idx_r = -1;
+	for(int i = 0; i< row;i++) {
+		for(int j = 0; j< col ;j++) {
+			if (mat[i][j] == 0) {
+				idx_r++;
+				idx[idx_r][0] = i;
+				idx[idx_r][1] = j;
+			}
+		}
+	}
+	
+	for(int i = 0;i<=idx_r;i++){
+		for(int j = 0; j<row;j++) {
+			mat[j][idx[i][1]] = 0;
+		}
+		for(int j = 0; j<col;j++) {
+			mat[idx[i][0]][j] = 0;
+		}
+	}
 }
