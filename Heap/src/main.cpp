@@ -21,22 +21,7 @@ int main() {
 	for (int i = 0; i< 7;i++)
 		h.insert(vals[i]);
 
-	
-	//print_array(h);
-	//h.erase(13);
-	//cout << endl;
-	//print_array(h);
-	//h.erase(92);
-	//cout << endl;
-	//print_array(h);
-	//h.erase(67);
-	//cout << endl;
-	//print_array(h);
-	//h.erase(61);
-	//cout << endl;
-	//print_array(h);
-	//cout << endl;
-	h.heapify(0,0);
+	h.erase(13);	
 	print_array(h);
 	return -1;
 }

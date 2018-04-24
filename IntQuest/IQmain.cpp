@@ -16,7 +16,7 @@ bool fun1_4(char * str1,int len1, char * str2, int len2);
 void fun1_5(char *str, int len);
 //1.6 Given an image represented by an NxN matrix, where each pixel in
 //the image is 4 bytes, write a mthod to rotate the image by 90 degress.
-void fun1_6(int mat[5][],int row, int col);
+void fun1_6(int mat[][5],int row, int col);
 //1.7 Write a function which finds if a matrix element i,j contains 0 and sets 
 // all elements in the row i and col j to 0
 void fun1_7(int mat[5][5], int row,int col); 
@@ -105,7 +105,7 @@ void fun1_3(char * str, int len) {
 }
 
 //1.4 Write a method to decide if two strings are anagrams or not.
-bool fun1_4(char * str1, int len1, char * str2, int len) {
+bool fun1_4(char * str1, int len1, char * str2, int len2) {
 	
 	int char_s1[256];
 	int char_s2[256];
@@ -164,7 +164,7 @@ void fun1_5(char * str, int len) {
 
 //1.6 Give an image represented by an NxN matrix, where each pixel in image 
 //is 4 bytes, write amethod to rotate the image by 90 degrees.
-void fun1_6(int mat[5][],int row,int col) {
+void fun1_6(int mat[][5],int row,int col) {
 	//First reflect the matrix about the horizontal axis.
 	//Then reflect the matrix about y = -x;
 	//This can be done in place
@@ -188,9 +188,9 @@ void fun1_6(int mat[5][],int row,int col) {
 		if (ri == row && ci == row) {
 			Ri++; Ci++; ri = Ri;ci = Ci;
 		}
-		cpy = Mat[Ri][ci];
-		Mat[Ri][ci] = Mat[ri][Ci];
-		Mat[ri][Ci] = cpy;
+		cpy = mat[Ri][ci];
+		mat[Ri][ci] = mat[ri][Ci];
+		mat[ri][Ci] = cpy;
 		ri++;ci++;
 	}
 	
