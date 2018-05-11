@@ -64,7 +64,7 @@ void Heap<T>::insert(T m_val) {
 	n_size++;
 }
 
-//erases element if it exists. returns 1 if erased and -1  else
+//erases element if it exists. returns index of erase element if erased and -1  else
 template<typename T>
 int Heap<T>::erase(T m_val) {
 	int idx = -1;
@@ -161,6 +161,9 @@ int Heap<T>::switch_parent_child(int heap_type,int p_idx) {
 	return rtn_val;
 }
 
+/**Reinitializes tree to larger size
+***Worst Case Scenaro. Takes O(n)
+**/
 template<typename T>
 void Heap<T>::reinit_Tree() {
 	///Make Tree max size larger
