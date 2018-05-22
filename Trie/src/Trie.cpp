@@ -12,10 +12,6 @@ Trie::Trie(){
 
 }
 
-/*
-Trie::~Trie(){
-	delete  child;
-}*/
 
 /* Inserts into Trie
  * Returns pointer new Trie
@@ -52,11 +48,6 @@ bool Trie::find(const char* val)
 		return this->child[i_val]->end;
 	}
 
-	//if (this->child[i_val] == 0)
-		//return false;
-	//if (this->end = true && *(val+1) == '\0')
-	//	return true;
-	
 	
 	return this->child[i_val]->find(val+1);
 }
